@@ -1,0 +1,3 @@
+/Users/tmelnik/labss/beyangu/intro/basics/cmake-build-debug/CMakeFiles/basics.dir
+/Users/tmelnik/labss/beyangu/intro/basics/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/tmelnik/labss/beyangu/intro/basics/cmake-build-debug/CMakeFiles/rebuild_cache.dir
