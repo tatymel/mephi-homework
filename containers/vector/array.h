@@ -159,24 +159,7 @@ bool Array::operator !=(const Array& it) const{
     return false;
 }
 
-bool Array::operator ==(const Array& it) const{
-    /*if(Size_ != it.Size())
-=======
-    return !(*this == it);
-}
-
-bool Array::operator ==(const Array& it) const{
-    if(Size_ != it.Size())
->>>>>>> 742b919 (test1)
-        return false;
-    else {
-        for (size_t i = 0; i < Size_; i++){
-            if (Elements_[i] != it.Elements_[i])
-                return false;
-        }
-        return true;
-<<<<<<< HEAD
-    }*/
+bool Array::operator ==(const Array& it) const {
     return !Array::operator!=(it);
 }
 std::ostream& operator <<(std::ostream& ostream, const Array& array){
@@ -194,11 +177,17 @@ std::ostream& operator <<(std::ostream& ostream, const Array& array){
 }
 
 bool Array::operator <=(const Array& it) const{
-    return (*this < it or *this == it);
+    for (size_t i = 0; i < std::min(Size(), it.Size()); ++i){
+        if (Elements_[i] > it.Elements_[i]){
+            return false;
+        }else if(Elements_[i] < it.Elements_[i])
+            return true;
+    }
+    return true;
 }
 
 bool Array::operator >=(const Array& it) const{
-    return (*this > it or *this == it);
+    return !Array::operator<=(it);
 }
 
 std::ostream& operator <<(std::ostream& ostream, const Array& array){
