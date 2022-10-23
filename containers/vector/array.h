@@ -151,39 +151,22 @@ bool Array::operator >(const Array& it) const{
 }
 
 bool Array::operator !=(const Array& it) const{
-    for (size_t i = 0; i < std::min(Size(), it.Size()); ++i){
-        if (Elements_[i] != it.Elements_ [i]){
-            return true;
+    return !(*this == it);
+}
+
+bool Array::operator ==(const Array& it) const {
+    if(Size_ == it.Size()){
+        for(int i = 0; i < Size_; i++){
+            if(Elements_[i] != it.Elements_[i])
+                return false;
         }
+        return true;
     }
     return false;
 }
 
-bool Array::operator ==(const Array& it) const {
-    return !Array::operator!=(it);
-}
-std::ostream& operator <<(std::ostream& ostream, const Array& array){
-    if (array.Size() == 0){
-        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << 0;
-    }else{
-        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
-                << ", elements are: ";
-        for (size_t i = 0; i < array.Size() - 1; ++i){
-            ostream << *(array.Elements_ + i) << ", ";
-        }
-        ostream << *(array.Elements_ + array.Size() - 1);
-    }
-    }
-}
-
 bool Array::operator <=(const Array& it) const{
-    for (size_t i = 0; i < std::min(Size(), it.Size()); ++i){
-        if (Elements_[i] > it.Elements_[i]){
-            return false;
-        }else if(Elements_[i] < it.Elements_[i])
-            return true;
-    }
-    return true;
+    return (*this == it || *this < it);
 }
 
 bool Array::operator >=(const Array& it) const{
