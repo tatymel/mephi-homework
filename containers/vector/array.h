@@ -52,7 +52,7 @@ Ostream_ << "Constructed. " << *this << "\n";
 
 Array::Array(const Array& array) : Ostream_(array.Ostream_){ ////WHY OSTREAM?
 Size_ = array.Size();
-Capacity_ = 2 * Size_;
+Capacity_ = array.Capacity();
 Elements_ = new int[Capacity_];
 for(int i = 0; i < Size_; i++)
     Elements_[i] = array.Elements_[i];
