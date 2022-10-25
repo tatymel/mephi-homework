@@ -2,11 +2,11 @@
 #include "string"
 
 bool is_palindrome(const std::string& s) {
-    const char *alf = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
+    const std::string alf = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
     std::string new_str = "";
 
     for(auto i = 0; i < s.size();i++){
-        if(std::strchr(alf, s[i]) != nullptr)
+        if(alf.find(s[i]))
             new_str += s[i];
     }
     bool ans = true;
