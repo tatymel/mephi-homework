@@ -4,8 +4,9 @@
 bool is_palindrome(const std::string& s) {
     const char *alf = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
     std::string new_str = "";
-    for(int i = 0; i < s.size();i++){
-        if(std::strchr(alf, char(s[i])) != nullptr)
+
+    for(auto i = 0; i < s.size();i++){
+        if(std::strchr(alf, s[i]) != nullptr)
             new_str += s[i];
     }
     bool ans = true;
