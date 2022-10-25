@@ -5,9 +5,9 @@ bool is_palindrome(const std::string& s) {
     const std::string alf = "qwertyuioplkjhgfdsazxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM";
     std::string new_str = "";
 
-    for(auto i = 0; i < s.size();i++){
-        if(alf.find(s[i]))
-            new_str += s[i];
+    for(char i : s){
+        if(alf.find(i))
+            new_str += i;
     }
     bool ans = true;
     int new_str_size = new_str.size();
