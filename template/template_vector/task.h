@@ -27,7 +27,7 @@ public:
         for(size_t i = 0; i < size;i++){
             Elements_[i] = defaultValue;
         }
-    }////
+    }
 
     ~Array() {
         delete[] Elements_;
