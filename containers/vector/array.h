@@ -151,19 +151,27 @@ bool Array::operator >(const Array& it) const{
 }
 
 bool Array::operator !=(const Array& it) const{
-    return !(*this == it);
-}
-
-bool Array::operator ==(const Array& it) const {
-    if(Size_ == it.Size()){
-        for(int i = 0; i < Size_; i++){
-            if(Elements_[i] != it.Elements_[i])
-                return false;
+    for (size_t i = 0; i < std::min(Size(), it.Size()); ++i){
+        if (Elements_[i] != it.Elements_ [i]){
+            return true;
         }
-        return true;
     }
     return false;
 }
+
+bool Array::operator ==(const Array& it) const{
+    /*if(Size_ != it.Size())
+        return false;
+    else {
+        for (size_t i = 0; i < Size_; i++){
+            if (Elements_[i] != it.Elements_[i])
+                return false;
+        }
+        return true;
+    }*/
+    return !Array::operator!=(it);
+}
+
 
 bool Array::operator <=(const Array& it) const{
     for (size_t i = 0; i < std::min(Size_, it.Size()); ++i){
