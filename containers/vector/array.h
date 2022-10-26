@@ -166,7 +166,13 @@ bool Array::operator ==(const Array& it) const {
 }
 
 bool Array::operator <=(const Array& it) const{
-    return (*this == it || *this < it);
+    for (size_t i = 0; i < std::min(Size_, it.Size()); ++i){
+        if (Elements_[i] > it.Elements_[i]){
+            return false;
+        }else if(Elements_[i] < it.Elements_[i])
+            return true;
+    }
+    return true;
 }
 
 bool Array::operator >=(const Array& it) const{
