@@ -6,7 +6,7 @@ bool is_palindrome(const std::string& s) {
     std::string new_str = "";
 
     for(char i : s){
-        if(alf.find(i) != std::string::npos)
+        if(alf.find(i) != std::string::npos) ////
             new_str += i;
     }
     bool ans = true;
