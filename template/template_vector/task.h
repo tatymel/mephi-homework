@@ -37,7 +37,7 @@ public:
         Size_ = 0;
     }
 
-    
+
 
     size_t Size() const {
         return Size_;
