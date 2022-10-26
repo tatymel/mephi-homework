@@ -54,7 +54,7 @@ Array::Array(const Array& array) : Ostream_(array.Ostream_){ ////WHY OSTREAM?
 Size_ = array.Size();
 Capacity_ = array.Capacity();
 Elements_ = new int[Capacity_];
-for(int i = 0; i < Size_; i++)
+for(size_t i = 0; i < Size_; i++)
     Elements_[i] = array.Elements_[i];
 Ostream_ << "Constructed from another Array. " << *this << "\n";
 }
@@ -63,7 +63,7 @@ Array::Array(size_t size, std::ostream& ostream, int defaultValue) : Ostream_(os
 Size_ = size;
 Capacity_  = 2 * Size_;
 Elements_ = new int[Capacity_];
-for(int i = 0; i < size; i++){
+for(size_t i = 0; i < size; i++){
     Elements_[i] = defaultValue;
 }
 
@@ -89,7 +89,7 @@ void Array::PushBack(int value){
 
 void Array::Reserve(size_t ncapacity_){
     int* NewElem = new int[ncapacity_];
-    for(int i = 0; i < Size_; i++){
+    for(size_t i = 0; i < Size_; i++){
         NewElem[i] = Elements_[i];
     }
     delete[] Elements_; ////   !!!!
