@@ -14,6 +14,6 @@ char* concat(const char* lhs, const char* rhs) {
         new_str[i] = rhs[i - n];
         i++;
     }
-    cout << lhs;
+    
     return new_str;
 }
