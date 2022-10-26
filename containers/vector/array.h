@@ -125,12 +125,12 @@ Array& Array::operator <<(const int& value){
     return *this;
 }
 
-
 Array& Array::operator <<(const Array& it) {
-    for (size_t i = 0; i < it.Size(); i++)
+    for (size_t i = 0; i < it.Size(); ++i)
         PushBack(it.Elements_[i]);
     return *this;
 }
+
 
 bool Array::operator <(const Array& it) const{
     size_t minim = std::min(Size_, it.Size());
