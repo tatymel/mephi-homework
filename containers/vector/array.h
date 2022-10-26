@@ -87,21 +87,21 @@ void Array::PushBack(int value){
     Size_ += 1;
 }
 
-void Array::Reserve(size_t ncapacity_){
-    int* NewElem = new int[ncapacity_];
+void Array::Reserve(size_t newCapacity){
+    int* NewElem = new int[newCapacity];
     for(size_t i = 0; i < Size_; i++){
         NewElem[i] = Elements_[i];
     }
     delete[] Elements_; ////   !!!!
     Elements_ = NewElem; ////   !!!!
-    Capacity_ = ncapacity_;
+    Capacity_ = newCapacity;
 }
 
-void Array::Resize(size_t nsize_){
-    if(nsize_ > Capacity_){
-        Array::Reserve((nsize_ * 2));
+void Array::Resize(size_t newSize){
+    if(newSize > Capacity_){
+        Array::Reserve((newSize * 2));
     }
-    Size_ = nsize_;
+    Size_ = newSize;
 }
 
 void Array::PopBack(){
