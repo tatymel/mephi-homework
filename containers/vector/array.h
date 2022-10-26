@@ -38,37 +38,33 @@ private:
 
 Array::~Array(){
     delete[] Elements_;
-
     Ostream_ << "Destructed " << Size_ << "\n";
-
 }
 
 Array::Array(std::ostream& ostream) : Ostream_(ostream){
-Elements_ = new int[2];
-Size_ = 0;
-Capacity_ = 2;
-Ostream_ << "Constructed. " << *this << "\n";
+    Elements_ = new int[2];
+    Size_ = 0;
+    Capacity_ = 2;
+    Ostream_ << "Constructed. " << *this << "\n";
 }
 
 Array::Array(const Array& array) : Ostream_(array.Ostream_){ ////WHY OSTREAM?
-Size_ = array.Size();
-Capacity_ = array.Capacity();
-Elements_ = new int[Capacity_];
-for(size_t i = 0; i < Size_; i++)
-    Elements_[i] = array.Elements_[i];
-Ostream_ << "Constructed from another Array. " << *this << "\n";
+    Size_ = array.Size();
+    Capacity_ = array.Capacity();
+    Elements_ = new int[Capacity_];
+    for(size_t i = 0; i < Size(); ++i)
+        Elements_[i] = array.Elements_[i];
+    Ostream_ << "Constructed from another Array. " << *this << "\n";
 }
 
 Array::Array(size_t size, std::ostream& ostream, int defaultValue) : Ostream_(ostream){
-Size_ = size;
-Capacity_  = 2 * Size_;
-Elements_ = new int[Capacity_];
-for(size_t i = 0; i < size; i++){
-    Elements_[i] = defaultValue;
-}
-
-Ostream_ << "Constructed with default. " << *this << "\n"; //to make
-
+    Size_ = size;
+    Capacity_  = 2 * Size_;
+    Elements_ = new int[Capacity_];
+    for(size_t i = 0; i < size; ++i){
+        Elements_[i] = defaultValue;
+    }
+    Ostream_ << "Constructed with default. " << *this << "\n"; //to make
 }
 
 size_t Array::Size() const{
@@ -83,30 +79,31 @@ void Array::PushBack(int value){
     if(Size_ == Capacity_){
         Array::Reserve(Size_ * 2);
     }
-    Elements_[Size_] = value;
+    *(Elements_ + int(Size())) = value;
     Size_ += 1;
 }
 
 void Array::Reserve(size_t newCapacity){
-    int* NewElem = new int[newCapacity];
-    for(size_t i = 0; i < Size_; i++){
-        NewElem[i] = Elements_[i];
+    if(newCapacity > Capacity_) {
+        int *NewElem = new int[newCapacity];
+        for (size_t i = 0; i < Size_; ++i) {
+            NewElem[i] = Elements_[i];
+        }
+        delete[] Elements_; ////   !!!!
+        Elements_ = NewElem; ////   !!!!
+        Capacity_ = newCapacity;
     }
-    delete[] Elements_; ////   !!!!
-    Elements_ = NewElem; ////   !!!!
-    Capacity_ = newCapacity;
 }
 
 void Array::Resize(size_t newSize){
     if(newSize > Capacity_){
-        Array::Reserve((newSize * 2));
+        Array::Reserve((newSize));
     }
     Size_ = newSize;
 }
 
 void Array::PopBack(){
-  Size_--;
-
+    Size_--;
 }
 
 int& Array::operator [](const size_t& i){
@@ -131,7 +128,6 @@ Array& Array::operator <<(const Array& it) {
     return *this;
 }
 
-
 bool Array::operator <(const Array& it) const{
     size_t minim = std::min(Size_, it.Size());
     for(size_t i = 0; i < std::min(Size_, it.Size()); ++i) {
@@ -142,9 +138,6 @@ bool Array::operator <(const Array& it) const{
     }
     return false;
 }
-
-
-
 
 bool Array::operator >(const Array& it) const{
     return !Array::operator<(it);
@@ -172,8 +165,8 @@ bool Array::operator ==(const Array& it) const{
     return !Array::operator!=(it);
 }
 
-
 bool Array::operator <=(const Array& it) const{
+    //return (*this < it or *this == it);
     for (size_t i = 0; i < std::min(Size_, it.Size()); ++i){
         if (Elements_[i] > it.Elements_[i]){
             return false;
@@ -184,16 +177,21 @@ bool Array::operator <=(const Array& it) const{
 }
 
 bool Array::operator >=(const Array& it) const{
+    //return (*this > it or *this == it);
     return !Array::operator<=(it);
 }
 
 std::ostream& operator <<(std::ostream& ostream, const Array& array){
-    ostream << "Result Array's capacity is " << array.Capacity()
-            << " and size is " << array.Size() << ", elements are: ";
-    for(size_t i = 0; i < array.Size() - 1; i++){
-        ostream << *(array.Elements_ + i) << ", ";
+    if (array.Size() == 0){
+        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << 0;
+    }else{
+        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
+                << ", elements are: ";
+        for (size_t i = 0; i < array.Size() - 1; ++i){
+            ostream << *(array.Elements_ + i) << ", ";
+        }
+        ostream << *(array.Elements_ + array.Size() - 1);
     }
-    ostream << *(array.Elements_ + array.Size() - 1);
     return ostream;
 }
 
