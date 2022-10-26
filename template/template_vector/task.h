@@ -7,7 +7,7 @@ public:
         Elements_ = new T[2];
         Size_ = 0;
         Capacity_ = 2;
-        
+
     }
 
 
@@ -92,7 +92,6 @@ public:
     }
 
     bool operator <(const Array<T>& it) const {
-        size_t minim = std::min(Size_, it.Size());
         for(size_t i = 0; i < std::min(Size_, it.Size()); ++i) {
             if (Elements_[i] > it.Elements_[i]) {
                 return false;
