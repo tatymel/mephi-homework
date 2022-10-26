@@ -49,12 +49,12 @@ Array::Array(std::ostream& ostream) : Ostream_(ostream){
 }
 
 Array::Array(const Array& array) : Ostream_(array.Ostream_){ ////WHY OSTREAM?
-    Size_ = array.Size();
-    Capacity_ = array.Capacity();
-    Elements_ = new int[Capacity_];
-    for(size_t i = 0; i < Size(); ++i)
-        Elements_[i] = array.Elements_[i];
-    Ostream_ << "Constructed from another Array. " << *this << "\n";
+Size_ = array.Size();
+Capacity_ = array.Capacity();
+Elements_ = new int[Capacity_];
+for(size_t i = 0; i < Size(); ++i)
+    Elements_[i] = array.Elements_[i];
+Ostream_ << "Constructed from another Array. " << *this << "\n";
 }
 
 Array::Array(size_t size, std::ostream& ostream, int defaultValue) : Ostream_(ostream){
