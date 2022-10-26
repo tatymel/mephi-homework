@@ -7,6 +7,7 @@ public:
         Elements_ = new T[2];
         Size_ = 0;
         Capacity_ = 2;
+        
     }
 
 
