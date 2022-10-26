@@ -5,6 +5,7 @@ char* concat(const char* lhs, const char* rhs) {
     char* new_str = new char;
 
     int i = 0;
+
     while (lhs[i] != '\0'){
         new_str[i] = lhs[i];
         i++;
@@ -14,6 +15,6 @@ char* concat(const char* lhs, const char* rhs) {
         new_str[i] = rhs[i - n];
         i++;
     }
-    
+
     return new_str;
 }
