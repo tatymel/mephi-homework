@@ -129,6 +129,7 @@ Array& Array::operator <<(const Array& it) {
 }
 
 bool Array::operator <(const Array& it) const{
+    size_t minim = std::min(Size_, it.Size());
     for(size_t i = 0; i < std::min(Size_, it.Size()); ++i) {
         if (Elements_[i] > it.Elements_[i]) {
             return false;
@@ -181,13 +182,16 @@ bool Array::operator >=(const Array& it) const{
 }
 
 std::ostream& operator <<(std::ostream& ostream, const Array& array){
-    ostream << "Result Array's capacity is " << array.Capacity()
-            << " and size is " << array.Size() << ", elements are: ";
-    for(size_t i = 0; i < array.Size() - 1; ++i){
-        ostream << *(array.Elements_ + i) << ", ";
-    }
-    if(array.Size() != 0)
+    if (array.Size() == 0){
+        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << 0;
+    }else{
+        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
+                << ", elements are: ";
+        for (size_t i = 0; i < array.Size() - 1; ++i){
+            ostream << *(array.Elements_ + i) << ", ";
+        }
         ostream << *(array.Elements_ + array.Size() - 1);
+    }
     return ostream;
 }
 
