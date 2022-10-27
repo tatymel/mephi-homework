@@ -48,6 +48,14 @@ public:
         return Capacity_;
     }
 
+    T *begin() const{
+        return Elements_;
+    }
+
+    T* end() const{
+        return Elements_ + Size_;
+    }
+
     void Reserve(size_t newCapacity) {
         if(newCapacity > Capacity_){
             T* NewElements_ = new T[newCapacity];
@@ -92,10 +100,15 @@ public:
     }
 
     bool operator <(const Array<T>& it) const {
-        for(size_t i = 0; i < size_t(std::min(Size_, it.Size())); ++i) {
-            if (Elements_[i] > it.Elements_[i]) {
+        size_t m;
+        if(Size_ < it.Size_)
+            m = Size_;
+        else
+            m = it.Size();
+        for(size_t i = 0; i < m; i++) {
+            if (Elements_[i] > it[i]) {
                 return false;
-            }else if(Elements_[i] < it.Elements_[i])
+            }else if(Elements_[i] < it[i])
                 return true;
         }
         if(Size_ < it.Size())
@@ -114,7 +127,7 @@ public:
 
     bool operator ==(const Array<T>& it) const {
         if(Size_ == it.Size()){
-            for(int i = 0; i < Size_; i++){
+            for(size_t i = 0; i < Size_; i++){
                 if(Elements_[i] != it.Elements_[i])
                     return false;
             }
