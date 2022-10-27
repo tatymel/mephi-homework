@@ -210,7 +210,19 @@ public:
         }
         return true;
     }
-    friend std::ostream& operator <<(std::ostream& ostream, const Array<T>& array);
+    friend std::ostream& operator <<(std::ostream& ostream, const Array<T>& array){
+        if(array.Size() == 0){
+            ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << 0;
+        }else if(array.Size() > 0){
+            ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
+                    << ", elements are: ";
+            for (size_t i = 0; i < array.Size() - 1; ++i){
+                ostream << *(array.Elements_ + i) << ", ";
+            }
+            ostream << *(array.Elements_ + array.Size() - 1);
+        }
+        return ostream;
+    }
 private:
     // ToDo
     T* Elements_;
@@ -219,19 +231,6 @@ private:
     std::ostream& Ostream_;
 };
 
-template<typename T>
-std::ostream& operator <<(std::ostream& ostream, const Array<T>& array) {
-    if(array.Size() == 0){
-        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << 0;
-    }else if(array.Size() > 0){
-        ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
-                << ", elements are: ";
-        for (size_t i = 0; i < array.Size() - 1; ++i){
-            ostream << array.Elements_[i] << ", ";
-        }
-        ostream << array.Elements_[array.Size() - 1];
-    }
-    return ostream;
-}
+
 
 
