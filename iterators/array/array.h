@@ -8,7 +8,7 @@ public:
         Elements_ = new T[2];
         Size_ = 0;
         Capacity_ = 2;
-
+        Ostream_ << "Constructed. " << *this << "\n";
     }
 
     Array(const Array<T>& array) : Ostream_(array.Ostream_){
@@ -17,6 +17,7 @@ public:
         Elements_ = new T[Capacity_];
         for(size_t i = 0; i < Size_; i++)
             Elements_[i] = array.Elements_[i];
+        Ostream_ << "Constructed from another Array. " << *this << "\n";
     }
 
     Array(size_t size, std::ostream& ostream = std::cout, T defaultValue = T())
@@ -28,10 +29,12 @@ public:
         for(size_t i = 0; i < size;i++){
             Elements_[i] = defaultValue;
         }
+        Ostream_ << "Constructed with default. " << *this << "\n"; 
     }
 
     ~Array() {
         delete[] Elements_;
+        Ostream_ << "Destructed " << Size_ << "\n";
     }
 
     void Clear(){
