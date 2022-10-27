@@ -10,7 +10,6 @@ public:
 
     }
 
-
     Array(const Array<T>& array) : Ostream_(array.Ostream_){
         Size_ = array.Size();
         Capacity_ = array.Capacity();
@@ -93,7 +92,7 @@ public:
 
     bool operator <(const Array<T>& it) const {
         size_t m;
-        if(Size_ < it.Size_)
+        if(Size_ < it.Size())
             m = Size_;
         else
             m = it.Size();
@@ -187,7 +186,7 @@ template<typename T>
 std::ostream& operator <<(std::ostream& ostream, const Array<T>& array) {
     if(array.Size() == 0){
         ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << 0;
-    }else{
+    }else if(array.Size() > 0){
         ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
                 << ", elements are: ";
         for (size_t i = 0; i < array.Size() - 1; ++i){
