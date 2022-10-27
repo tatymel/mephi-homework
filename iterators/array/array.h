@@ -29,7 +29,7 @@ public:
         for(size_t i = 0; i < size;i++){
             Elements_[i] = defaultValue;
         }
-        Ostream_ << "Constructed with default. " << *this << "\n"; 
+        Ostream_ << "Constructed with default. " << *this << "\n";
     }
 
     ~Array() {
@@ -210,7 +210,7 @@ public:
         }
         return true;
     }
-
+    friend std::ostream& operator <<(std::ostream& ostream, const Array& array);
 private:
     // ToDo
     T* Elements_;
