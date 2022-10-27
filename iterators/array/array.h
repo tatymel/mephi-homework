@@ -210,7 +210,7 @@ public:
         }
         return true;
     }
-    friend std::ostream& operator <<(std::ostream& ostream, const Array& array);
+    friend std::ostream& operator <<(std::ostream& ostream, const Array<T>& array);
 private:
     // ToDo
     T* Elements_;
