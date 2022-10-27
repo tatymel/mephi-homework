@@ -78,6 +78,14 @@ public:
         Size_--;
     }
 
+    T* begin(){
+        return Elements_;
+    }
+    
+    T* end(){
+        return Elements_ + Size_;
+    }
+
     const T& operator [](const size_t i) const {
         return Elements_[i];
     }
