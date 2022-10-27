@@ -88,11 +88,11 @@ public:
     }
 
     explicit operator bool() const {
-        return Size_ != 0;
+        return Elements_ != NULL;
     }
 
     bool operator <(const Array<T>& it) const {
-        for(size_t i = 0; i < std::min(Size_, it.Size()); ++i) {
+        for(size_t i = 0; i < size_t(std::min(Size_, it.Size())); ++i) {
             if (Elements_[i] > it.Elements_[i]) {
                 return false;
             }else if(Elements_[i] < it.Elements_[i])
