@@ -105,15 +105,6 @@ public:
         if(Size_ < it.Size())
             return true;
         return false;
-
-    }
-
-    bool operator >(const Array<T>& it) const {
-        return !(*this < it || *this == it);
-    }
-
-    bool operator !=(const Array<T>& it) const {
-        return !(*this == it);
     }
 
     bool operator ==(const Array<T>& it) const {
@@ -126,6 +117,15 @@ public:
         }
         return false;
     }
+
+    bool operator >(const Array<T>& it) const {
+        return !(*this < it || *this == it);
+    }
+
+    bool operator !=(const Array<T>& it) const {
+        return !(*this == it);
+    }
+
 
     bool operator <=(const Array<T>& it) const {
         return (*this == it || *this < it);
