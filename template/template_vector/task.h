@@ -159,7 +159,7 @@ public:
         Size_++;
         return true;
 
-    }
+    } ////
 
     bool Erase(size_t pos) {
         if(pos >= Size_)
@@ -185,9 +185,10 @@ std::ostream& operator <<(std::ostream& ostream, const Array<T>& array) {
     }else{
         ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
                 << ", elements are: ";
-        for(size_t i = 0; i < array.Size() - 1; i++)
-            ostream << array.Elements_[i] << ", ";
-        ostream << array.Elements_[array.Size() - 1] - 1;
+        for (size_t i = 0; i < array.Size() - 1; ++i){
+            ostream << *(array.Elements_ + i) << ", ";
+        }
+        ostream << *(array.Elements_ + array.Size() - 1);
     }
     return ostream;
 }
