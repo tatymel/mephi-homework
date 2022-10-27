@@ -48,14 +48,6 @@ public:
         return Capacity_;
     }
 
-    T *begin() const{
-        return Elements_;
-    }
-
-    T* end() const{
-        return Elements_ + Size_;
-    }
-
     void Reserve(size_t newCapacity) {
         if(newCapacity > Capacity_){
             T* NewElements_ = new T[newCapacity];
