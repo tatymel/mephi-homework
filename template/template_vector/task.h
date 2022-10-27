@@ -78,11 +78,11 @@ public:
         Size_--;
     }
 
-    T* begin(){
+    T* begin() const{
         return Elements_;
     }
-    
-    T* end(){
+
+    T* end() const{
         return Elements_ + Size_;
     }
 
