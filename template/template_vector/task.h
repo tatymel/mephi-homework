@@ -83,7 +83,7 @@ public:
     }
 
     T* end() const{
-        return Elements_ + Size_;
+        return Elements_ + Size();
     }
 
     const T& operator [](const size_t i) const {
