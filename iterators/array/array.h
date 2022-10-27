@@ -227,9 +227,9 @@ std::ostream& operator <<(std::ostream& ostream, const Array<T>& array) {
         ostream << "Result Array's capacity is " << array.Capacity() << " and size is " << array.Size()
                 << ", elements are: ";
         for (size_t i = 0; i < array.Size() - 1; ++i){
-            ostream << *(array.Elements_ + i) << ", ";
+            ostream << array.Elements_[i] << ", ";
         }
-        ostream << *(array.Elements_ + array.Size() - 1);
+        ostream << array.Elements_[array.Size() - 1];
     }
     return ostream;
 }
