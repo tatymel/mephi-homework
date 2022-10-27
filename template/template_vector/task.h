@@ -156,29 +156,54 @@ public:
     }
 
     bool Insert(size_t pos, const T& value) {
-        if(pos > Size_)
+        if (pos > Size_)
+        {
             return false;
-        if(Size_ == Capacity_)
-            Reserve(Size_ * 2);
-        T temp = Elements_[pos];
-        Elements_[pos] = value;
-        T next = Elements_[pos + 1];
-        for(size_t i = pos + 1; i <= Size_; i++){
-            Elements_[i] = temp;
-            temp = next;
-            next = Elements_[i + 1];
         }
-        Size_++;
+        else
+        {
+            T *arr = new T[Size_ + 1];
+            for (size_t i = 0; i < pos; i++)
+            {
+                arr[i] = Elements_[i];
+            }
+            arr[pos] = value;
+            for (size_t i = pos + 1; i < Size_ + 1; i++)
+            {
+                arr[i] = Elements_[i - 1];
+            }
+            delete[] Elements_;
+            Elements_ = arr;
+            if (Size_ == Capacity_)
+            {
+                Capacity_ *= 2;
+            }
+            Size_++;
+        }
         return true;
 
     } ////
 
     bool Erase(size_t pos) {
-        if(pos >= Size_)
+        if (pos >= Size_)
+        {
             return false;
-        for(size_t i = pos; i < Size_ - 1;i++)
-            Elements_[i] = Elements_[i + 1];
-        Size_--;
+        }
+        else
+        {
+            T *arr = new T[Size_ - 1];
+            for (size_t i = 0; i < pos; i++)
+            {
+                arr[i] = Elements_[i];
+            }
+            for (size_t i = pos; i < Size_ - 1; i++)
+            {
+                arr[i] = Elements_[i + 1];
+            }
+            Size_--;
+            delete[] Elements_;
+            Elements_ = arr;
+        }
         return true;
     }
 
