@@ -88,7 +88,7 @@ public:
     }
 
     explicit operator bool() const {
-        Size_ != 0;
+        return Size_ != 0;
     }
 
     bool operator <(const Array<T>& it) const {
