@@ -37,11 +37,11 @@ public:
             return old;
         }
 
-        bool operator!=(TIterator& it) const{
-            return it.current != this->current;
+        bool operator!=(const TIterator& it) const{
+            return (it.current != this->current);
         }
 
-        bool operator==(TIterator& it) const{
+        bool operator==(const TIterator& it) const{
             return !(*this != it);
         }
     };
