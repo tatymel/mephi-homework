@@ -27,23 +27,4 @@ void PopulateHashMap(
         const std::vector<std::pair<SuperKey, std::string>>& toAdd
 );
 
-/*
-namespace std{
 
-    template<>
-    struct hash<SuperKey>{
-        std::size_t operator()(const SuperKey& Skey) const
-        {
-            using std::size_t;
-            using std::hash;
-            using std::string;
-
-            return ((hash<std::string>()(Skey.StrPart)
-                     ^ (hash<int>()(Skey.IntPart) << 1)) >> 1)
-                   ^ (hash<float>()(Skey.FloatPart) << 1);
-        }
-
-    };
-
-
-}*/
