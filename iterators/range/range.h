@@ -14,7 +14,7 @@ public:
     public:
         int64_t current;
         int64_t end;
-        const int64_t step;
+        int64_t step;
 
         TIterator(int64_t start, int64_t end, const int64_t step) : current(start), end(end), step(step) {};
 
@@ -22,7 +22,7 @@ public:
             return this->current;
         }
 
-        TIterator& operator++(){
+        TIterator& operator++(){ //++iter
             if(step > 0 && this->current + step > end)
                 this->current = end;
             else if(step < 0 && this->current + step < end)
@@ -31,18 +31,33 @@ public:
                 this->current += step;
             return *this;
         }
-        TIterator operator++(int){
+        TIterator operator++(int){ //iter++
             TIterator old = *this;
             operator++();
             return old;
         }
 
         bool operator!=(const TIterator& it) const{
-            return (it.current != this->current);
+            return (it.current != this->current || it.step != this->step);
         }
 
         bool operator==(const TIterator& it) const{
             return !(*this != it);
+        }
+        /*friend bool operator!=(const TIterator& lhs, const TIterator& rhs){
+            return (lhs.current != rhs.current || lhs.step != rhs.step);
+        }
+
+        friend bool operator==(const TIterator& lhs, const TIterator& rhs){
+            return !(lhs != rhs);
+        }
+        friend TIterator& operator+(int64_t rhs, TIterator& lhs){
+            lhs.current += rhs * lhs.step;
+            return lhs;
+        }*/
+        friend TIterator& operator+(int64_t rhs, TIterator& lhs){
+            lhs.current += rhs * lhs.step;
+            return lhs;
         }
     };
 
@@ -51,17 +66,13 @@ public:
     Range(int64_t start, int64_t end, int64_t step) : Start_(start), End_(end), Step_(step) {};
 
     int64_t Size() const{
-        return std::abs(End_ - Start_ + Step_ - 1) / std::abs(Step_);
+        return std::abs(std::abs(End_ - Start_) + std::abs(Step_) - 1) / std::abs(Step_);
     }
 
-    TIterator begin() const{
+    const TIterator begin() const{
         return TIterator(Start_, End_, Step_);
     }
-    TIterator end() const{
+    const TIterator end() const{
         return TIterator(End_, End_, Step_);
     }
-
-
-
-
 };
