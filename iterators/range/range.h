@@ -31,7 +31,7 @@ public:
                 this->current += step;
             return *this;
         }
-        TIterator operator++(int){ //iter++
+        TIterator operator++(int){ //пост-инкремента(i++), post-increment
             TIterator old = *this;
             operator++();
             return old;
