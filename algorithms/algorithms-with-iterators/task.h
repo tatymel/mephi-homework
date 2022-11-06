@@ -1,5 +1,7 @@
 #include <cstdlib>
 #include <iterator>
+#include <vector>
+#include <functional>
 
 /*
  * Нужно написать функцию, которая принимает на вход диапазон, применяет к каждому элементу данную операцию и затем складывает результат применения операции в новый диапазон
@@ -10,6 +12,16 @@
 
 template<class InputIt, class OutputIt, class UnaryOperation>
 void Transform(InputIt firstIn, InputIt lastIn, OutputIt firstOut, UnaryOperation op) {
+    std::vector<bool> result;
+    int size = 0, i = 0;
+    for(InputIt it = firstIn; it != lastIn; ++it){
+        result.push_back(op(*it));
+        ++size;
+    }
+    for(OutputIt it = firstOut; it != firstOut + size; ++it) {
+        *it = result[i++];
+    }
+
 }
 
 /*
@@ -21,6 +33,22 @@ void Transform(InputIt firstIn, InputIt lastIn, OutputIt firstOut, UnaryOperatio
 
 template<class BidirIt, class UnaryPredicate>
 void Partition(BidirIt first, BidirIt last, UnaryPredicate p) {
+    BidirIt i = first, j = first;
+    while(i != last && j != last){
+        while(i != last && !p(*i))
+            ++i;
+        while(j != last && p(*j))
+            ++j;
+        if(i!= last && j!= last && p(*i) && !p(*j)) {
+            if(i > j) {
+                std::swap(*i, *j);
+                ++i;
+                ++j;
+            }else{
+                ++i;
+            }
+        }
+    }
 }
 
 /*
@@ -28,6 +56,28 @@ void Partition(BidirIt first, BidirIt last, UnaryPredicate p) {
  */
 template<class InputIt1, class InputIt2, class OutputIt>
 void Merge(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2, OutputIt firstOut) {
+    InputIt1 i = first1;
+    InputIt2 j = first2;
+    while(i != last1 && j != last2){
+        if(*i < *j){
+            *firstOut = *i;
+            ++i;
+        }else{
+            *firstOut = *j;
+            ++j;
+        }
+        ++firstOut;
+    }
+    while(i != last1) {
+        *firstOut = *i;
+        ++i;
+        ++firstOut;
+    }
+    while(j != last2){
+        *firstOut = *j;
+        ++j;
+        ++firstOut;
+    }
 }
 
 
@@ -37,6 +87,9 @@ void Merge(InputIt1 first1, InputIt1 last1, InputIt2 first2, InputIt2 last2, Out
  * С помощью функций begin и end можно получить итераторы и пробежать по диапазону или передать их в STL-алгоритмы
  */
 class FibonacciRange {
+private:
+    size_t Amount_;
+    uint64_t* Numbers_;
 public:
 
     class Iterator {
@@ -47,34 +100,70 @@ public:
         using pointer = value_type*;
         using reference = value_type&;
         using iterator_category = std::input_iterator_tag;
+    private:
+        pointer current;
+    public:
+        Iterator(pointer ptr) : current(ptr){}
+
+        ~Iterator()
+        {
+            delete[] current;
+        }
 
         value_type operator *() const {
             // разыменование итератора -- доступ к значению
+            return *current;
         }
 
         Iterator& operator ++() {
             // prefix increment
+            ++current;
+            return *this;
         }
 
+        ////
         Iterator operator ++(int) {
             // postfix increment
+            Iterator temp_current = *this;
+            operator++(); // or ++(*this)
+            return temp_current;
         }
 
         bool operator ==(const Iterator& rhs) const {
+            return (current == rhs.current);
         }
 
         bool operator <(const Iterator& rhs) const {
+            return(*current < *(rhs.current));
         }
     };
 
-    FibonacciRange(size_t amount) {}
+
+    FibonacciRange(size_t amount) : Amount_(amount)
+    {
+        Numbers_ = new uint64_t[Amount_];
+        if(Amount_ > 0)
+            Numbers_[0] = 1;
+        if(Amount_ > 1)
+            Numbers_[1] = 2;
+        for(size_t i = 2; i < Amount_; ++i)
+            Numbers_[i] = Numbers_[i - 1] + Numbers_[i - 2];
+    }
+    ~FibonacciRange()
+    {
+        delete[] Numbers_;
+    }
+
 
     Iterator begin() const {
+        return Iterator(Numbers_);
     }
 
     Iterator end() const {
+        return Iterator(Numbers_ + Amount_);
     }
 
     size_t size() const {
+        return Amount_;
     }
 };
