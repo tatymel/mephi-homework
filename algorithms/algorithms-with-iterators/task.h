@@ -12,16 +12,11 @@
 
 template<class InputIt, class OutputIt, class UnaryOperation>
 void Transform(InputIt firstIn, InputIt lastIn, OutputIt firstOut, UnaryOperation op) {
-    std::vector<bool> result;
-    int size = 0, i = 0;
+    OutputIt result = firstOut;
     for(InputIt it = firstIn; it != lastIn; ++it){
-        result.push_back(op(*it));
-        ++size;
+        *result = op(*it);
+        ++result;
     }
-    for(OutputIt it = firstOut; it != firstOut + size; ++it) {
-        *it = result[i++];
-    }
-
 }
 
 /*
@@ -102,13 +97,10 @@ public:
         using iterator_category = std::input_iterator_tag;
     private:
         pointer current;
+        //difference_type
     public:
         Iterator(pointer ptr) : current(ptr){}
 
-        ~Iterator()
-        {
-            delete[] current;
-        }
 
         value_type operator *() const {
             // разыменование итератора -- доступ к значению
@@ -131,6 +123,10 @@ public:
 
         bool operator ==(const Iterator& rhs) const {
             return (current == rhs.current);
+        }
+
+        bool operator !=(const Iterator& rhs) const{
+            return(current != rhs.current);
         }
 
         bool operator <(const Iterator& rhs) const {
@@ -167,3 +163,4 @@ public:
         return Amount_;
     }
 };
+
