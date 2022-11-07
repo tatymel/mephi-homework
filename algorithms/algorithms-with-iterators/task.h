@@ -97,7 +97,6 @@ public:
         using iterator_category = std::input_iterator_tag;
     private:
         pointer current;
-        //difference_type
     public:
         Iterator(pointer ptr) : current(ptr){}
 
