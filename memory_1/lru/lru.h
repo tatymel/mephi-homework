@@ -20,7 +20,7 @@ public:
             if(Temp_size_ < Max_size_){
                 ++Temp_size_;
             } else {
-                for (auto it = mp.begin(); it != mp.end(); ++it) {
+                for (auto it = mp.rbegin(); it != mp.rend(); --it) {
                     if (it->second == --Elements_.end()) {
                         mp.erase(it);
                         break;
