@@ -15,7 +15,7 @@ std::vector<std::shared_ptr<std::string>> DeDuplicate(std::vector<std::unique_pt
         bool fl = true;
         for(size_t j = 0; j < std::min(i, out.size()); ++j){
             if(*in[i] == *out[j]){
-                auto sp_new= out[j];
+                std::shared_ptr<std::string> sp_new(out[j]);
                 out[i] = sp_new;
                 fl = false;
                 break;
