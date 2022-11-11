@@ -1,13 +1,13 @@
 #include <iostream>
 #include <unordered_map>
-#include <deque>
+#include <list>
 template <typename K, typename V>
 class LruCache {
 private:
     size_t Max_size_;
     size_t Temp_size_;
-    std::unordered_map<K, typename std::deque<V>::iterator> mp;
-    std::deque<V> Elements_;
+    std::unordered_map<K, typename std::list<V>::iterator> mp;
+    std::list<V> Elements_;
 public:
     LruCache(size_t max_size) : Max_size_(max_size)
     {
@@ -16,34 +16,23 @@ public:
 
     void Put(const K& key, const V& value)
     {
-        auto it = mp.find(key);
-        bool fl = true;
-        if (it == mp.end())
-            fl = false;
-        if (!fl) {
+        if (mp.find(key) == mp.end()) {
             if(Temp_size_ < Max_size_){
-                Elements_.push_back(value);
                 ++Temp_size_;
             } else {
-                for(auto it1 = mp.begin(); it1 != mp.end();++it1){
-                    if(it1->second == Elements_.begin()){
-                        mp.erase(it1);
+                for (auto it = mp.begin(); it != mp.end(); ++it) {
+                    if (it->second == --Elements_.end()) {
+                        mp.erase(it);
                         break;
                     }
                 }
-                Elements_.pop_front();
-                Elements_.push_back(value);
-
-                /*for(size_t i = 0; i < Max_size_ - 1; ++i) {
-                    Elements_[i] = Elements_[i + 1];
-                }
-                Elements_[Max_size_ - 1] = value;*/
+                Elements_.pop_back();
             }
         }else {
             Elements_.erase(mp[key]);
-            Elements_.push_back(value);
         }
-        mp[key] = Elements_.end() - 1;
+        Elements_.push_front(value);
+        mp[key] = Elements_.begin();
     }
 
     bool Get(const K& key, V* value)
@@ -54,10 +43,9 @@ public:
         else
         {
             *value = *(it->second);
+            Elements_.push_front(*it->second);
             Elements_.erase(it->second);
-            Elements_.push_back(*it->second);
-            mp[key] = Elements_.end() - 1;
-
+            mp[key] = Elements_.begin();
             return true;
         }
     }
