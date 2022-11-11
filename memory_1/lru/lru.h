@@ -8,19 +8,18 @@ private:
     size_t Temp_size_;
     std::unordered_map<K, typename std::deque<V>::iterator> mp;
     std::deque<V> Elements_;
-    typename std::deque<V>::iterator LRU_;
-
 public:
     LruCache(size_t max_size) : Max_size_(max_size)
     {
         Temp_size_ = 0;
-        mp.reserve(Max_size_);
     };
 
     void Put(const K& key, const V& value)
     {
-        V result;
-        bool fl = Get(key, &result);
+        auto it = mp.find(key);
+        bool fl = true;
+        if (it == mp.end())
+            fl = false;
         if (!fl) {
             if(Temp_size_ < Max_size_){
                 Elements_.push_back(value);
