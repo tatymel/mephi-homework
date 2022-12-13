@@ -44,30 +44,6 @@ public:
     MoveCursorUpCommand() = default;
 
     void Apply(std::string& buffer, size_t& cursorPosition, std::string& clipboard, TextEditor& editor) override{
-        /*if(cursorPosition == buffer.size()){
-            cursorPosition = 0;
-        }else {
-            int kol_n = 0;
-            size_t kol_elem = 0;
-            if(buffer[cursorPosition] == '\n')
-                --kol_n;
-            while (kol_n < 2 && cursorPosition > 0) {
-                if (buffer[cursorPosition] == '\n')
-                    ++kol_n;
-                if (kol_n == 0)
-                    ++kol_elem;
-                --cursorPosition;
-            }
-            if(kol_n == 0){
-                cursorPosition += kol_elem;
-            }else {
-                if (kol_n == 2) {
-                    cursorPosition += 2;
-                }
-                if (kol_elem != 0)
-                    cursorPosition += kol_elem - 1;
-            }
-        }*/
         if(buffer[cursorPosition] == '\n' && cursorPosition > 0)
             --cursorPosition;
 
@@ -419,79 +395,51 @@ void CommandLoggerVisitor::VisitLowercaseTextCommand(LowercaseTextCommand &comma
 
 CommandPtr CommandBuilder::build() {
     CommandPtr new_command;
-    //CommandLoggerVisitor commandLoggerVisitor(*logStreamPtr_);
     switch(type_){
         case CommandBuilder::Type::InsertText :
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_, std::make_shared<InsertTextCommand>(InsertTextCommand(text_))));
             new_command = std::make_shared<InsertTextCommand>(InsertTextCommand(text_));
             break;
         case CommandBuilder::Type::MoveCursorLeft :
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_, std::make_shared<MoveCursorLeftCommand>(MoveCursorLeftCommand())));
             new_command = std::make_shared<MoveCursorLeftCommand>(MoveCursorLeftCommand());
-            //return new_command;
             break;
         case Type::MoveCursorRight:
             new_command = std::make_shared<MoveCursorRightCommand>(MoveCursorRightCommand());
             break;
         case Type::MoveCursorUp:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_, std::make_shared<MoveCursorUpCommand>(MoveCursorUpCommand())));
             new_command = std::make_shared<MoveCursorUpCommand>(MoveCursorUpCommand());
-            //return new_command;
             break;
         case Type::MoveCursorDown:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<MoveCursorDownCommand>(MoveCursorDownCommand())));
             new_command = std::make_shared<MoveCursorDownCommand>(MoveCursorDownCommand());
             break;
         case Type::SelectText:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<SelectTextCommand>(SelectTextCommand(selectionSize_))));
-
             new_command = std::make_shared<SelectTextCommand>(SelectTextCommand(selectionSize_));
-            //return new_command;
             break;
         case Type::DeleteText:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<DeleteTextCommand>(DeleteTextCommand())));
-            //return loggedCommandWrapper;
             new_command = std::make_shared<DeleteTextCommand>(DeleteTextCommand());
             break;
         case Type::CopyText:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<CopyTextCommand>(CopyTextCommand())));
             new_command = std::make_shared<CopyTextCommand>(CopyTextCommand());
-            //return new_command;
             break;
         case Type::PasteText:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<PasteTextCommand>(PasteTextCommand())));
             new_command = std::make_shared<PasteTextCommand>(PasteTextCommand());
-            //return new_command;
             break;
         case Type::UppercaseText:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<UppercaseTextCommand>(UppercaseTextCommand())));
-            //return loggedCommandWrapper;
             new_command = std::make_shared<UppercaseTextCommand>(UppercaseTextCommand());
             break;
         case Type::LowercaseText:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<LowercaseTextCommand>(LowercaseTextCommand())));
-            //return loggedCommandWrapper;
             new_command = std::make_shared<LowercaseTextCommand>(LowercaseTextCommand());
             break;
         case Type::MoveToEnd:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<MoveToEndCommand>(MoveToEndCommand())));
             new_command = std::make_shared<MoveToEndCommand>(MoveToEndCommand());
-            //return new_command;
             break;
         case Type::MoveToStart:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<MoveToStartCommand>(MoveToStartCommand())));
             new_command = std::make_shared<MoveToStartCommand>(MoveToStartCommand());
-            //return new_command;
             break;
         case Type::DeleteWord:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<DeleteWordCommand>(DeleteWordCommand())));
             new_command = std::make_shared<DeleteWordCommand>(DeleteWordCommand());
-            //return new_command;
             break;
         case Type::Macro:
-            //loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_,std::make_shared<MacroCommand>(MacroCommand(subcommands_))));
             new_command = std::make_shared<MacroCommand>(MacroCommand(subcommands_));
-            //return new_command;
             break;
     }
 
@@ -502,10 +450,5 @@ CommandPtr CommandBuilder::build() {
     }else{
         return new_command;
     }
-    /*if(logStreamPtr_ != nullptr) {
-        CommandPtr loggedCommandWrapper = std::make_shared<LoggedCommandWrapper>(LoggedCommandWrapper(*logStreamPtr_, new_command));
-        return loggedCommandWrapper;
-    }else {
-        return new_command;*/
 }
 
