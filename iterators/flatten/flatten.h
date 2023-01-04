@@ -49,10 +49,10 @@ public:
         }
 
         bool operator==(int x)const{
-            return this->Pos == x;
+            return Pos == x;
         }
         bool operator!=(int x)const{
-            return this->Pos != x;
+            return Pos != x;
         }
 
         Iterator& operator++() {
