@@ -13,7 +13,6 @@
 #include <vector>
 template<typename T>
 class FlattenedVector {
-    // Your code here
 public:
     //////
     class Iterator{
@@ -25,12 +24,9 @@ public:
         using reference = value_type&;
         using iterator_category = std::random_access_iterator_tag;
 
-        //inline static std::vector<size_t> PreffSum;
-
-        //Iterator(pointer vec) : IterVecOut(vec), IterVecIn(vec.begin()){}
-
         Iterator() = default;
-        Iterator(size_t pos, std::vector<std::vector<value_type>>& vec) : Pos(pos), IterVecOut(&vec){
+        Iterator(size_t pos, std::vector<std::vector<value_type>>& vec) : IterVecOut(&vec){
+            Pos = pos;
         }
 
         bool operator != (const Iterator& other) const {
@@ -80,15 +76,11 @@ public:
                 }
             }
             size_t column = r;
-            // while((IterVecOut->begin() + column - 1)->begin() == IterVecOut->end()->end()){column+=1;};
             return *((IterVecOut->begin() + column - 1)->begin() - PreffSum[column - 1] + pos);
         }
         reference operator*()const{
             return Bin_Poisk(Pos);
         }
-        /* reference operator*()const{
-            return *((IterVecOut->begin() + TempColumn - 1)->begin() + Pos - PreffSum[TempColumn - 1]);
-        }*/
         reference operator[](const Iterator& other)const{
             return Bin_Poisk(other.Pos + Pos);
         }
@@ -110,10 +102,8 @@ public:
         }
         size_t operator-(const Iterator& other)const{
             if(Pos > other.Pos)
-                //return Iterator(this->Pos - other.Pos, *IterVecOut);
                 return Pos - other.Pos;
             else
-                //return Iterator(other.Pos - Pos, *IterVecOut);
                 return other.Pos - Pos;
         }
         Iterator& operator += (const Iterator& other){
@@ -142,7 +132,6 @@ public:
     private:
         std::vector<std::vector<T>>* IterVecOut;
         size_t Pos;
-        //std::vector<size_t> PreffSum;
     };
     //////
     Iterator begin() const{
