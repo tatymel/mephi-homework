@@ -48,10 +48,10 @@ public:
             return Pos >= other.Pos;
         }
 
-        bool operator==(int x)const{
+        bool operator==(size_t x)const{
             return Pos == x;
         }
-        bool operator!=(int x)const{
+        bool operator!=(size_t x)const{
             return Pos != x;
         }
 
@@ -91,10 +91,10 @@ public:
         size_t operator+()const{
             return Pos;
         }
-        Iterator operator+(int x)const{
+        Iterator operator+(size_t x)const{
             return Iterator(Pos + x, *IterVecOut);
         }
-        Iterator operator-(int x)const{
+        Iterator operator-(size_t x)const{
             return Iterator(Pos - x, *IterVecOut);
         }
         size_t operator+(const Iterator& other)const{
@@ -114,11 +114,11 @@ public:
             Pos -= other.Pos;
             return *this;
         }
-        Iterator& operator +=(int x){
+        Iterator& operator +=(size_t x){
             Pos += x;
             return *this;
         }
-        Iterator& operator -=(int x){
+        Iterator& operator -=(size_t x){
             Pos -= x;
             return *this;
         }
