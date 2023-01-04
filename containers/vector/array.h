@@ -2,9 +2,9 @@
 
 class Array {
 public:
-    Array(std::ostream& ostream);
+    explicit Array(std::ostream& ostream);
     Array(const Array& array);
-    Array(size_t size, std::ostream& ostream = std::cout, int defaultValue = 0);
+    explicit Array(size_t size, std::ostream& ostream = std::cout, int defaultValue = 0);
     ~Array();
 
     size_t Size() const;
