@@ -129,7 +129,6 @@ Array& Array::operator <<(const Array& it) {
 }
 
 bool Array::operator <(const Array& it) const{
-    size_t minim = std::min(Size_, it.Size());
     for(size_t i = 0; i < std::min(Size_, it.Size()); ++i) {
         if (Elements_[i] > it.Elements_[i]) {
             return false;
